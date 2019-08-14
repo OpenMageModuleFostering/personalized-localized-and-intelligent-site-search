@@ -12,6 +12,7 @@ class Tagalys_MerchandisingPage_IndexController extends Mage_Core_Controller_Fro
     $status = Mage::helper('tagalys_core')->getTagalysConfig("is_merchandising_page_active");
     if ($status) {
       $response = $helper->getTagalysSearchData();
+      //var_dump($response['results']);
     }
 
     $this->loadLayout();
