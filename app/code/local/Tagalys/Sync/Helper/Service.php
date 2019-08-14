@@ -255,7 +255,7 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
       $label = Mage::app()->getLocale()->currency( $key )->getSymbol();
       if (!isset($label)) {
         if($baseCurrencyCode == "INR") {
-          $label = '\u20b9';
+          $label = '₹';
         }
       }
       $currency_rate[] = array("id" => $key, "label" => $label, "fractional_digits" => 2 , "rounding_mode" => "round", "exchange_rate" => (float)$value, "default" => $default); //getFinalPrice

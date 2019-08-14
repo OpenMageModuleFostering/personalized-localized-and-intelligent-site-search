@@ -260,7 +260,7 @@ class Tagalys_Sync_Helper_TagalysFeedFactory extends Varien_Io_File {
         rename(Mage::getBaseDir('media'). DS .'tagalys'. DS  . $file_meta->name, Mage::getBaseDir('media'). DS .'tagalys'. DS .$file_meta->domain.'-'. $file_meta->type.'-'.$file_meta->uniq_name.'-'.$file_meta->store.'-processing.jsonl');
         $file = Mage::getBaseDir('media'). DS .'tagalys'. DS .$file_meta->domain.'-'. $file_meta->type.'-'.$file_meta->uniq_name.'-'.$file_meta->store.'-processing.jsonl';
       } else {
-        $file = Mage::getBaseDir('media'). DS .'tagalys'. DS . $file_meta->type.'-'.$file_meta->uniq_name.'-'.$file_meta->store.'-processing.jsonl';
+        $file = Mage::getBaseDir('media'). DS .'tagalys'. DS .$file_meta->domain.'-' . $file_meta->type.'-'.$file_meta->uniq_name.'-'.$file_meta->store.'-processing.jsonl';
       }
 
       $this->open(array('path' => Mage::getBaseDir('media'). DS .'tagalys'. DS));
