@@ -21,11 +21,6 @@
       <codePool>local</codePool>            
       <version>0.2.0</version>
     </Tagalys_Sync>
-    <Tagalys_Tsearch>
-      <active>true</active>
-      <codePool>local</codePool>
-      <version>1.0.0</version>
-    </Tagalys_Tsearch>
   </modules>
 </config>
 

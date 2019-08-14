@@ -9,7 +9,6 @@ class Tagalys_Sync_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
 
     $this->_registryObject();
     $this->_title('Tagalys Core');
-    
     $this->loadLayout();
     $this->_setActiveMenu('Tagalys/core');
     $this->renderLayout();

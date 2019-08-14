@@ -33,7 +33,6 @@ class Tagalys_Tsearch_Block_Catalog_Product_List_Toolbar extends Mage_Catalog_Bl
    $collectionSize = (int) $tagalysData["total"];
 
    if (0 === $collectionSize) {
-     die($collectionSize);
     return 1;
   }
   elseif($this->_pageSize) {

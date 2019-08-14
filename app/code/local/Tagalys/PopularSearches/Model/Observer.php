@@ -15,7 +15,9 @@ class Tagalys_PopularSearches_Model_Observer  extends Varien_Object
   $this->file_path = $this->default_location . DS;
 }
 public function getPopularSearches() {
-
+  if(!Mage::helper('tagalys_core')->getTagalysConfig("is_tsearchsuggestion_active")) {
+      return false;
+    }
   if(!Mage::helper('tagalys_core')->getTagalysConfig('search_complete') || !Mage::helper('tagalys_core')->getTagalysConfig('setup_complete'))
     return false;
   try {

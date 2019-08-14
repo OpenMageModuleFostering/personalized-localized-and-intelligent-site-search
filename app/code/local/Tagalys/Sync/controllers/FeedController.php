@@ -16,10 +16,11 @@ class Tagalys_Sync_FeedController extends Mage_Core_Controller_Front_Action
   }
 
   public function indexStatusAction() {
+
     try {
       $output = $this->getRequest()->getParams();
 
-      if(true || $output["identification"]["client_code"] == Mage::helper('tagalys_core')->getTagalysConfig('client_code') 
+      if($output["identification"]["client_code"] == Mage::helper('tagalys_core')->getTagalysConfig('client_code') 
          && $output["identification"]["api_key"] == Mage::helper('tagalys_core')->getTagalysConfig('private_api_key')) {
         Mage::helper('tagalys_core')->setTagalysConfig('search_index_'.$output["identification"]["store_id"], 1);
 
@@ -29,16 +30,16 @@ class Tagalys_Sync_FeedController extends Mage_Core_Controller_Front_Action
         $temp = explode("media\/tagalys\/", $output["completed"]);
         $feed = $temp[1];
       }
-    Mage::helper("sync/tagalysFeedFactory")->deleteProductFeed($feed);
-    $type_file = explode("-", $feed);
-    if( $type_file[0] == "dump") {
-      Mage::helper('tagalys_core')->setTagalysConfig('product_sync_required_'.$output["identification"]["store_id"], 0);
-    }
-    
-    unlink(Mage::getBaseDir("media"). DS ."tagalys" . DS."tagalys-sync-progress-".$output["identification"]["store_id"].".json");
-     // $fp = fopen( $this->file_path.'tagalys-sync-progress.json', 'w');
-     //  fwrite($fp, json_encode(array()));
-     //  fclose($fp);
+      Mage::helper("sync/tagalysFeedFactory")->deleteProductFeed($feed);
+
+
+      $type_file = explode("-", $feed);
+      if( $type_file[0] == "dump") {
+        Mage::helper('tagalys_core')->setTagalysConfig('product_sync_required_'.$output["identification"]["store_id"], 0);
+      }
+
+      unlink(Mage::getBaseDir("media"). DS ."tagalys" . DS."tagalys-sync-progress-".$output["identification"]["store_id"].".json");
+      echo json_encode(array("installed_plugin" => Mage::getStoreConfig('tagalys_endpoint/endpoint/installed_plugin')));
     } else {
       return false;
     }

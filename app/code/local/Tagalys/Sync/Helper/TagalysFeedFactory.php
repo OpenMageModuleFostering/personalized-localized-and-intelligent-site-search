@@ -46,7 +46,7 @@ class Tagalys_Sync_Helper_TagalysFeedFactory extends Varien_Io_File {
     $total = $this->getTotal($storeId,$dump);
     $type =  $dump ? "dump" : "updates";
     $status = $this->isProductFeedProceesed($type);
-    $exist_feed = $this->getFeedFile($storeId,$dump);
+    $exist_feed = $this->getFeedFile($storeId,$type);
     if(isset($exist_feed)) {
       return false;
     }
