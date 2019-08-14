@@ -5,7 +5,7 @@
     <default>
         <tagalys>
             <package>
-                <name>Search Suggestions</name>
+                <name>Search</name>
                 <version>0.3.0</version>
             </package>
         </tagalys>
