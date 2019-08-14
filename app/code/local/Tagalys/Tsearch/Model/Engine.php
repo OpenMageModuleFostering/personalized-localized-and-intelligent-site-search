@@ -58,23 +58,18 @@ class Tagalys_Tsearch_Model_Engine extends Mage_Core_Model_Abstract  {
 			//$payload['filters'] = true;
 			$payload['request'] = array("results","total","filters","sort_options");
 			$payload['q'] = $query;
-			//$session_limit = $request["limit"]; //Mage::getSingleton('catalog/session')->getLimitPage();
+			$session_limit = $request["limit"]; //Mage::getSingleton('catalog/session')->getLimitPage();
 
 			//$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit);
       			//$payload['page'] = 1;
 
-			$session_limit = Mage::getSingleton('catalog/session')->getLimitPage();
+			//$session_limit = Mage::getSingleton('catalog/session')->getLimitPage();
 
 			//var_dump($defaultLimit);
 			//var_dump(json_encode($request));
 
 			$payload['page'] = (!empty($request['p'])) ? $request['p'] : 1;
-			 if($payload['page'] == 1) {
-			 	$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit) * 2;
-			 } else {
-		 	$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit) ;
-			 }
-			$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit) ;
+			$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit);
 			//var_dump(json_encode($payload));
 			
 
