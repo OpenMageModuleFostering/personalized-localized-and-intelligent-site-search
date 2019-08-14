@@ -75,49 +75,81 @@ class Tagalys_Tsearch_Block_Page_Html_Pager extends Mage_Page_Block_Html_Pager {
       }
       return $pages;
   }
-  public function getLastPageUrl()
-  {
-      return $this->getPageUrl($this->getCollection()->getLastPageNumber());
-  }
+  
   protected function _initFrame()
-  {
-      if (!$this->isFrameInitialized()) {
-          $start = 0;
-          $end = 0;
+{
+    if (!$this->isFrameInitialized()) {
+        $start = 0;
+        $end = 0;
 
-          $collection = $this->getCollection();
-          if ($this->getLastPageNum() <= $this->getFrameLength()) {
-              $start = 1;
-              $end = $this->getLastPageNum();
-          }
-          else {
-              $half = ceil($this->getFrameLength() / 2);
-              if ($collection->getCurPage() >= $half
-                  && $collection->getCurPage() <= $this->getLastPageNum() - $half
-              ) {
-                  $start  = ($collection->getCurPage() - $half) + 1;
-                  $end = ($start + $this->getFrameLength()) - 1;
-              }
-              elseif ($collection->getCurPage() < $half) {
-                  $start  = 1;
-                  $end = $this->getFrameLength();
-              }
-              elseif ($collection->getCurPage() > ($this->getLastPageNum() - $half)) {
-                  $end = $this->getLastPageNum();
-                  $start  = $end - $this->getFrameLength() + 1;
-              }
-          }
-          $this->_frameStart = $start;
-          $this->_frameEnd = $end;
+        //$collection = $this->getCollection();
+        if ($this->getLastPageNum() <= $this->getFrameLength()) {
+            $start = 1;
+            $end = $this->getLastPageNum();
+        }
+        else {
+	    $half = ceil($this->getFrameLength() / 2);
+	    if ($this->getCurrentPage() >= $half && $this->getCurrentPage() <= $this->getLastPageNum() - $half) {
+		$start  = ($this->getCurrentPage() - $half) + 1;
+                $end = ($start + $this->getFrameLength()) - 1;
+	    }
+	    elseif ($this->getCurrentPage() < $half) {
+                    $start  = 1;
+                    $end = $this->getFrameLength();
+	    }
+	    elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
+		    $end = $this->getLastPageNum();
+		    $start  = $end - $this->getFrameLength() + 1;
+	    }
+	    //$start = 1;
+	    //$end = $this->getLastPageNum() - abs($this->getLastPageNum() - $this->getFrameLength());
 
-          $this->_setFrameInitialized(true);
-      }
+        }
+        $this->_frameStart = $start;
+        $this->_frameEnd = $end;
 
-      return $this;
-  }
+        $this->_setFrameInitialized(true);
+    }
+
+    return $this;
+}
+
+
+  public function getFramePages()
+    {
+        $start = $this->getFrameStart();
+        $end = $this->getFrameEnd();
+        return range($start, $end);
+    }
+
   public function getCurrentPage()
   {
       return (int) $this->getRequest()->getParam($this->getPageVarName(), 1);
   }
 
+  public function getPreviousPageUrl()
+  {
+        return $this->getPageUrl($this->getCurrentPage() - 1);
+  }
+
+  public function getNextPageUrl()
+  {
+        return $this->getPageUrl($this->getCurrentPage() + 1);
+  }
+  public function getFirstPageUrl()
+  {
+        return $this->getPageUrl($this->getLastPageNum());
+  }
+  public function getLastPageUrl()
+  {
+        return $this->getPageUrl($this->getLastPageNum());
+  }
+  public function isFirstPage()
+  {
+        return $this->getCurrentPage() == 1;
+  }
+  public function isLastPage()
+  {
+        return $this->getCurrentPage() == $this->getLastPageNum();
+  }
 }
