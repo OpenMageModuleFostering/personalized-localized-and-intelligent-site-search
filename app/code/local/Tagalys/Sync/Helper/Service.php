@@ -273,7 +273,7 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
     array_push($types, array("value" => "price"));
     foreach ($types as $key => $value) {
       if($value["value"] == "price") {
-        $typemap[$value["value"]] = "integer";
+        $typemap[$value["value"]] = "float";
       } elseif ($value["value"] == "boolean") {
         $typemap[$value["value"]] = "boolean";
       } elseif ($value["value"] == "date") {

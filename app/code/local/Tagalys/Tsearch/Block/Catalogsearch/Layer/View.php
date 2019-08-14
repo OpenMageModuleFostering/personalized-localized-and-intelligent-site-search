@@ -64,7 +64,7 @@ class Tagalys_Tsearch_Block_Catalogsearch_Layer_View extends Mage_Catalog_Block_
         ->init();
 
 
-        // $this->setChild('layer_state', $stateBlock);
+        $this->setChild('layer_state', $stateBlock);
         $this->setChild('category_filter', $categoryBlock);
         // $this->createCategoriesBlock();
 

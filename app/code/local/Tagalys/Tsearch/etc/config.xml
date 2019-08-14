@@ -42,11 +42,11 @@
 					<result>Tagalys_Tsearch_Block_Catalogsearch_Result</result>
 				</rewrite>
 			</catalogsearch> -->
-			<catalog>
+			<catalogsearch>
 				<rewrite>
 					<layer>Tagalys_Tsearch_Block_Catalogsearch_Layer_View</layer>
 				</rewrite>
-			</catalog>
+			</catalogsearch>
 			<!-- <catalog>
 				<rewrite>
 					<state>Mage_Catalog_Block_Layer_State</state>
