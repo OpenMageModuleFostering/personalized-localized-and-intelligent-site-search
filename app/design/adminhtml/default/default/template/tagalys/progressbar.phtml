@@ -143,6 +143,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
   <?php else: ?>
   $$("#admin_tagalys_reload")[0].hide();
   <?php endif ?>
+  <?php foreach (Mage::helper("sync/data")->getSelectedStore() as $key => $value): ?>
+
+  search_auto_load('<?php echo $value ?>');
+  feed_auto_load('<?php echo $value ?>');
+  
+  <?php endforeach ?>
+
 });
 
 //Refresh auto_load() function after 10000 milliseconds
