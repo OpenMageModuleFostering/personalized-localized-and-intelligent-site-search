@@ -8,7 +8,7 @@ class Tagalys_Sync_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
   public function indexAction() {
 
     $this->_registryObject();
-    $this->_title('Tagalys Core');
+    $this->_title('Tagalys Configuration');
     $this->loadLayout();
     $this->_setActiveMenu('Tagalys/core');
     $this->renderLayout();
@@ -24,9 +24,7 @@ class Tagalys_Sync_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
     if(!empty($output["submit_auth"])){
       Mage::dispatchEvent('tagalys_auth_event', array('object'=>$output));
     }
-    if (!empty($output["search_box"])) {
-      Mage::getSingleton('core/session')->addSuccess("Installation is now complete. Search suggestions are enabled for your store.");
-    }
+    
 
     unset($output["key"]);
     unset($output["form_key"]);
@@ -81,6 +79,8 @@ class Tagalys_Sync_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
       $response = Mage::helper("sync/tagalysFeedFactory")->createProductFeed($key,true);;
     }
   }
+  if(Mage::helper('tagalys_core')->getTagalysConfig("is_tsearchsuggestions_active") || Mage::helper('tagalys_core')->getTagalysConfig("is_tsearch_active"))
+  Mage::getSingleton('core/session')->addSuccess("Your preference has been saved.");
 
   return $this->_redirect('*/tagalys');
 }

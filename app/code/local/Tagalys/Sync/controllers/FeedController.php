@@ -39,6 +39,8 @@ class Tagalys_Sync_FeedController extends Mage_Core_Controller_Front_Action
       }
 
       unlink(Mage::getBaseDir("media"). DS ."tagalys" . DS."tagalys-sync-progress-".$output["identification"]["store_id"].".json");
+      $plugin_to_be_activated = Mage::getStoreConfig('tagalys_endpoint/endpoint/plugin_to_be_activated');
+      Mage::helper('tagalys_core')->setTagalysConfig('is_'.$plugin_to_be_activated.'_active', 1);
       echo json_encode(array("installed_plugin" => Mage::getStoreConfig('tagalys_endpoint/endpoint/installed_plugin')));
     } else {
       return false;

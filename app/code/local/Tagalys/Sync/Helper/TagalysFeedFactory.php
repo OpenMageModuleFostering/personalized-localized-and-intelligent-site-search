@@ -10,8 +10,7 @@ class Tagalys_Sync_Helper_TagalysFeedFactory extends Varien_Io_File {
   protected $_api;
   protected $_total;
   
-  CONST FEED_COUNT = 0;
-  CONST PAGE_LIMIT = 10;
+  CONST PAGE_LIMIT = 1000;
   
   function __construct() {
     $this->default_location = Mage::getBaseDir('media'). DS .'tagalys';

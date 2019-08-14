@@ -15,6 +15,7 @@ class Tagalys_Tsearch_Block_Catalog_Product_List extends Mage_Catalog_Block_Prod
 				if(empty($searchResult)) {
 					return parent::_getProductCollection();
 				}
+				
 				$collection = $this->_productCollection = Mage::getModel('catalog/product')
 				->getCollection()
 				->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())

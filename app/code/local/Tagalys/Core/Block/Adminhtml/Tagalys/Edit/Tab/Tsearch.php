@@ -38,7 +38,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface {
 
 
     $fieldset->addField('submit', 'submit', array(
-      'name' => 'search_config',
+      'name' => 'submit_search_config',
       'value' => 'Submit',
       'class'=> "tagalys-btn",
       'tabindex' => 1

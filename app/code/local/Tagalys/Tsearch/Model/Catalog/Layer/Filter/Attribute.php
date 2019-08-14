@@ -6,7 +6,7 @@
 
    public function addFacetCondition() {
     $this->getLayer()
-      // ->getProductCollection()
+      ->getProductCollection()
     ->addFacetCondition($this->_getFilterField());
     return $this;
   }
