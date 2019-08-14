@@ -1,6 +1,6 @@
 <?php
 
-class Tagalys_Tsearch_Model_Catalogsearch_Layer extends Mage_Catalog_Model_Layer
+class Tagalys_Tsearch_Model_Catalogsearch_Layer extends Mage_CatalogSearch_Model_Layer
 {
 
 protected $_facetsConditions = array();

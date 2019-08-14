@@ -33,12 +33,6 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tabs extends Mage_Adminhtml_Bloc
   if($status && Mage::helper('core')->isModuleEnabled('Tagalys_Tsearch')) {
     $this->setActiveTab('tagalys_tsearch');
   }
-  if($status && Mage::helper('core')->isModuleEnabled('Tagalys_MerchandisingPage')) {
-    $this->setActiveTab('tagalys_merchandisingpage');
-  }
-  if($status && Mage::helper('core')->isModuleEnabled('Tagalys_SimilarProducts')) {
-    $this->setActiveTab('tagalys_similarproducts');
-  }
   return parent::_beforeToHtml();
 }
   /**
@@ -91,29 +85,7 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tabs extends Mage_Adminhtml_Bloc
                     ->toHtml()
                     ));
     }
-    if($status && Mage::helper('core')->isModuleEnabled('Tagalys_MerchandisingPage')) {
-      $this->addTab('tagalys_merchandisingpage', array(
-                    'label'     => $this->__('Merchandising Page Settings'),
-                    'content'   => $this->getLayout()->createBlock('tagalys_core/adminhtml_tagalys_edit_tab_merchandisingpage')
-                    ->toHtml()
-                    ));
-    }
-
-    if($status && Mage::helper('core')->isModuleEnabled('Tagalys_SimilarProducts')) {
-      $this->addTab('tagalys_similarproducts', array(
-                    'label'     => $this->__('Similar Products Settings'),
-                    'content'   => $this->getLayout()->createBlock('tagalys_core/adminhtml_tagalys_edit_tab_similarproducts')
-                    ->toHtml()
-                    ));
-    }
     
-    if($stores_setup) {
-      $this->addTab('tagalys_debug', array(
-                    'label'     => $this->__('Troubleshooting'),
-                    'content'   => $this->getLayout()->createBlock('tagalys_core/adminhtml_tagalys_edit_tab_debug')
-                    ->toHtml()
-                    ));
-    }
 
     return parent::_prepareLayout();
   }

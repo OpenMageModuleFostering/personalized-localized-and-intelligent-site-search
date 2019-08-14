@@ -33,30 +33,26 @@
 			</tsearch>
 			<catalog>
 				<rewrite>
-					<product_list>Tagalys_Tsearch_Block_Catalog_Product_List</product_list>
+					<!-- <product_list>Tagalys_Tsearch_Block_Catalog_Product_List</product_list> -->
 					<product_list_toolbar>Tagalys_Tsearch_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
+					<tagalys_similar_products>Tagalys_Tsearch_Block_Catalog_Product_Similar</tagalys_similar_products>
 				</rewrite>
 			</catalog>
-			<page>
-				<rewrite>
-					<html_pager>Tagalys_Tsearch_Block_Page_Html_Pager</html_pager>
-				</rewrite>
-			</page>
-		<!-- 	<catalogsearch>
+			<catalogsearch>
 				<rewrite>
 					<result>Tagalys_Tsearch_Block_Catalogsearch_Result</result>
 				</rewrite>
-			</catalogsearch> -->
+			</catalogsearch>
 			<catalogsearch>
 				<rewrite>
 					<layer>Tagalys_Tsearch_Block_Catalogsearch_Layer_View</layer>
 				</rewrite>
 			</catalogsearch>
-			<!-- <catalog>
+<!-- 			<catalog>
 				<rewrite>
-					<state>Mage_Catalog_Block_Layer_State</state>
+					<state>Tagalys_Tsearch_Block_Catalog_Layer_State</state>
 				</rewrite>
-			</catalog>   -->
+			</catalog> -->  
 		</blocks>
 		<models>
 			<tsearch>
@@ -68,11 +64,11 @@
 			<tsearch_resource>
 				<class>Tagalys_Tsearch_Model_Resource</class>
 			</tsearch_resource>
-			<catalog>
+			<catalogsearch>
 				<rewrite>
 					<layer>Tagalys_Tsearch_Model_Catalogsearch_Layer</layer>
 				</rewrite>
-			</catalog>
+			</catalogsearch>
 		</models>
 		<!-- <resources>
 			<tsearch_setup>

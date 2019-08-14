@@ -102,6 +102,25 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface {
   'tabindex' => 1
   ));
 
+ $welcome_fieldset = $form->addFieldset('welcome_fieldset', array('legend' => $this->__('Manual Resync')));
+
+
+ $welcome_fieldset->addField('note_resync', 'note', array(
+  'text'     => $this->__('Do not manually sync the catalog unless you face any issues with normal setup.  This is not a part of regular setup, please do this with guidance from the tagalys team (cs@tagalys.com)'),
+  ));
+
+ $welcome_fieldset->addField('submit', 'submit', array(
+   'name' => 'submit_resync',
+   'value' => 'Trigger Manual Resync',
+   'class'=> "tagalys-btn",
+   'tabindex' => 1
+   ));
+
+ $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+   ->addFieldMap("{$htmlIdPrefix}sync_level", 'sync_level')
+   ->addFieldMap("{$htmlIdPrefix}note_advanced", 'note_advanced')
+   ->addFieldDependence('note_advanced', 'sync_level', 'advanced')
+   );
 
  $this->setForm($form);
  return parent::_prepareForm();

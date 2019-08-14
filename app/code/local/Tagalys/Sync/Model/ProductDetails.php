@@ -89,14 +89,14 @@ class Tagalys_Sync_Model_ProductDetails extends Mage_Core_Model_Abstract {
 		} 
 		return $tagalys_parent_id;
 	}
-	public function getProductAttributes($productId, $store_id, $unsyncFields)  {
+	public function getProductAttributes($productId, $unsyncFields)  {
 
 		$product = Mage::getModel('catalog/product')->load($productId);
 		$attribute_options_id = null;
 		$attriute_option_value = null;
 		$type = $product->getTypeId();
 		$attributeObj = array();
-		$product->setStoreId($store_id);
+		$product->setStoreId($this->_storeId);
 		$categories = Mage::helper('sync/data')->getProductTreeCat($productId);
 		$attributeObj[] = array("tag_set" => array("id" => "__categories", "label" => "categories" ),"items" => ($categories));
 
@@ -114,7 +114,7 @@ class Tagalys_Sync_Model_ProductDetails extends Mage_Core_Model_Abstract {
 					} 
 					$values['label'] = $attriute_option_value;
 					$values['id'] = $attribute_options_id;
-					if($values && !is_null($attribute_options_id) && $values['label'] != "N/A"){
+					if(!is_null($attribute_options_id) && $values['label'] != "N/A"){
 						$attributeObj[] = array("tag_set" => array("id" => $attribute->getAttributeCode(), "label" => $attribute->getFrontend()->getLabel($product) ),"items" => array($values));
 					}
 				}

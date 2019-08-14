@@ -6,7 +6,7 @@
 
    public function addFacetCondition() {
     $this->getLayer()
-      ->getProductCollection()
+      // ->getProductCollection()
     ->addFacetCondition($this->_getFilterField());
     return $this;
   }
@@ -97,10 +97,12 @@
      */
 
     protected function _getItemsData() {
+
       $attribute = $this->getAttributeModel();
       $this->_requestVar = $attribute->getAttributeCode();
       $key = $this->getLayer()->getStateKey().'_'.$this->_requestVar;
       $data = $this->getLayer()->getAggregator()->getCacheData($key);
+
       if ($data === null) {
       // $filters = $attribute->getFrontend()->getSelectOptions();
        $tagalys = Mage::helper('tsearch')->getTagalysSearchData();

@@ -16,7 +16,7 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
 			->addAttributeToSelect('*')
 			->setCurPage($page);
 			
-			$payload = $this->getProductWithParentAttribute($collection,$store_id);
+			$payload = $this->getProductWithParentAttribute($collection);
 			return $payload;
 			
 		} catch (Exception $e) {
@@ -24,10 +24,10 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
 		}
 	}
 	
-	public function getProductWithParentAttribute($products,$store_id) {
+	public function getProductWithParentAttribute($products) {
 		$payload = array();
 		foreach ($products as $product) {
-			$simpleProduct = $this->getSingleProductWithoutPayload($product->getId(),$store_id);
+			$simpleProduct = $this->getSingleProductWithoutPayload($product->getId());
 			if(isset($simpleProduct)) {
 				array_push($payload,array("perform" => "index", "payload" => $simpleProduct));
 			}		
@@ -36,8 +36,7 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
 	}
 
 
-	public function getSingleProductWithoutPayload($product_id, $store_id, $admin = false) {
-
+	public function getSingleProductWithoutPayload($product_id, $admin = false) {
     $core_helper = Mage::helper('tagalys_core');
     $sync_helper = Mage::helper('sync/data');
     $sync_level = $core_helper->getTagalysConfig("sync_level");
@@ -47,8 +46,8 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
     $utc_now = new DateTime((string)date("Y-m-d h:i:s"));
     $time_now =  $utc_now->format(DateTime::ATOM);
     $attr_data = array();
-    $attributes = $details_model->getProductAttributes($product_id, $store_id, array_keys((array) $product_data));
-    $product_data = $details_model->getProductFields($product_id, $store_id);
+    $attributes = $details_model->getProductAttributes($product_id, array_keys((array) $product_data));
+    $product_data = $details_model->getProductFields($product_id, $this->_storeId);
     $product_data->synced_at = $time_now;
     $product_data->__tags = $attributes;
     if($sync_level == "advanced"){
@@ -118,7 +117,7 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
       ->addStoreFilter($this->_storeId)
       ->addAttributeToFilter( 'entity_id', array( 'in' => $products_id ));
 
-      $respone = $this->getProductWithParentAttribute($productCollection, $this->_storeId);
+      $respone = $this->getProductWithParentAttribute($productCollection);
       foreach ($respone as $key => $value) {
         array_push($existing_products_id, $value["payload"]->__id);
         $count++;
@@ -246,18 +245,9 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
     $defaultCurrencies = $currencyModel->getConfigBaseCurrencies();
     $rates=$currencyModel->getCurrencyRates($defaultCurrencies, $currencies); //rates of each currency
 
-    if (empty($rates[$baseCurrencyCode])) {
-      $rates[$baseCurrencyCode] = array($baseCurrencyCode => '1.0000');
-    }
-
     foreach($rates[$baseCurrencyCode] as $key=>$value  ) {
       $default = $baseCurrencyCode == $key ? true : false;
       $label = Mage::app()->getLocale()->currency( $key )->getSymbol();
-      if (!isset($label)) {
-        if($baseCurrencyCode == "INR") {
-          $label = '₹';
-        }
-      }
       $currency_rate[] = array("id" => $key, "label" => $label, "fractional_digits" => 2 , "rounding_mode" => "round", "exchange_rate" => (float)$value, "default" => $default); //getFinalPrice
     }
 
@@ -282,7 +272,7 @@ class Tagalys_Sync_Helper_Service extends Mage_Core_Helper_Abstract {
     array_push($types, array("value" => "price"));
     foreach ($types as $key => $value) {
       if($value["value"] == "price") {
-        $typemap[$value["value"]] = "float";
+        $typemap[$value["value"]] = "integer";
       } elseif ($value["value"] == "boolean") {
         $typemap[$value["value"]] = "boolean";
       } elseif ($value["value"] == "date") {

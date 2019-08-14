@@ -23,7 +23,37 @@ class Tagalys_Tsearch_Block_Catalogsearch_Layer_View extends Mage_Catalog_Block_
     }
     }
     
- 
+    // public function getStateInfo() { 
+    //     $_hlp = $this->_helper;
+    //     //Check the Layered Nav position (Search or Catalog pages)
+    //     $ajaxUrl = '';
+    //     if ($_hlp->isSearch()) {
+    //         $ajaxUrl = Mage::getUrl('catalogsearch/result/index');
+    //     } 
+
+
+    //     $ajaxUrl = $_hlp->stripQuery($ajaxUrl);
+    //     $url = $_hlp->getContinueShoppingUrl();
+
+    //     //Set the AJAX Pagination
+    //     $pageKey = Mage::getBlockSingleton('page/html_pager')->getPageVarName();
+
+    //     //Get parameters of serach
+    //     $queryStr = $_hlp->getParams(true, $pageKey);
+    //     if ($queryStr)
+    //         $queryStr = substr($queryStr, 1);
+
+    //     $this->setClearAllUrl($_hlp->getClearAllUrl($url));
+
+    //     if (false !== strpos($url, '?')) {
+    //         $url = substr($url, 0, strpos($url, '?'));
+    //     }
+    //     return array($url, $queryStr, $ajaxUrl);
+    // }
+
+    // public function bNeedClearAll() {
+    //     return $this->_helper->bNeedClearAll();
+    // }
     public function getClearUrl()
     {   
 
@@ -64,7 +94,7 @@ class Tagalys_Tsearch_Block_Catalogsearch_Layer_View extends Mage_Catalog_Block_
         ->init();
 
 
-        $this->setChild('layer_state', $stateBlock);
+        // $this->setChild('layer_state', $stateBlock);
         $this->setChild('category_filter', $categoryBlock);
         // $this->createCategoriesBlock();
 

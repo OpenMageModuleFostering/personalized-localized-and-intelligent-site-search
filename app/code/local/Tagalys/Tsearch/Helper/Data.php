@@ -2,13 +2,7 @@
 class Tagalys_Tsearch_Helper_Data extends Mage_Core_Helper_Abstract {
 
 	public function getTagalysSearchData() {
-    $controllerModule = Mage::app()->getRequest()->getControllerModule();
-    if($controllerModule == 'Tagalys_MerchandisingPage') {
-      $service = Mage::getSingleton("merchandisingpage/client");
-    } else {
-      $service = Mage::getSingleton("tsearch/client_connector");
-    }
-    // $service = Mage::getSingleton("tsearch/client_connector");
+$service = Mage::getSingleton("tsearch/client_connector");
 		if($this->isTagalysActive()) {
 			$searchResult = $service->getSearchResult();
 			if ($searchResult == null) {

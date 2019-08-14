@@ -4,10 +4,7 @@ class Tagalys_Core_Model_Observer  extends Varien_Object
 
   public function tagalys_distpatch(Varien_Event_Observer $observer)
   { 
-    if(!Mage::helper('tagalys_core')->getTagalysConfig("is_tsearchsuggestion_active")) {
-      return false;
-    }
-    $params = $observer->getEvent()->getControllerAction()->getRequest()->getParams();
+
     $tagalys_config_events = array('adminhtml_catalog_product_attribute_delete','adminhtml_catalog_product_attribute_save', 'adminhtml_system_currency_saveRates','adminhtml_system_currencysymbol_save');
     if(in_array ($observer->getEvent()->getControllerAction()->getFullActionName(), $tagalys_config_events))
     {
@@ -15,11 +12,10 @@ class Tagalys_Core_Model_Observer  extends Varien_Object
     }
     if(in_array ($observer->getEvent()->getControllerAction()->getFullActionName(), array("adminhtml_catalog_category_save")))
     {
-
-      $catid = $params["id"];
+      $catid = $observer->getEvent()->getControllerAction()->getRequest()->getParams()["id"];
       $this->updateCategory($catid);
     }
-    if($params["section"] == "currency") {
+    if($observer->getEvent()->getControllerAction()->getRequest()->getParams()["section"] == "currency") {
       Mage::dispatchEvent("tagalys_custom_config_event", array('request' => $observer->getControllerAction()->getRequest()));
     }
   }
@@ -55,7 +51,6 @@ class Tagalys_Core_Model_Observer  extends Varien_Object
 
 public function ValidateClientConfig() {
 		// $config_data = $observer->getObject();
- 
   $tagalys_response = $this->getTagalysConfig();
   if($tagalys_response["result"] != true ) { 
     Mage::helper('tagalys_core')->setTagalysConfig('stores_setup', 0);
@@ -73,7 +68,6 @@ public function ValidateClientConfig() {
 }
 
 public function getTagalysConfig() {
-
   $service = Mage::getSingleton("sync/client");
   $this->_helper = Mage::helper("sync/service");
   $stores = Mage::helper("sync/data")->getSelectedStore();

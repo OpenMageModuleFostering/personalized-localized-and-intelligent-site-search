@@ -35,8 +35,8 @@ class Tagalys_Tsearch_Block_Catalog_Layer_View extends Mage_Catalog_Block_Layer_
         parent::_initBlocks();
         if (Mage::helper('tsearch')->isTagalysActive()) {
             $this->_categoryBlockName        = 'tsearch/catalog_layer_filter_category';
-            $this->_attributeFilterBlockName = 'tsearch/catalog_layer_filter_attribute';
-            $this->_priceFilterBlockName     = 'tsearch/catalog_layer_filter_price';
+            // $this->_attributeFilterBlockName = 'tsearch/catalog_layer_filter_attribute';
+            // $this->_priceFilterBlockName     = 'tsearch/catalog_layer_filter_price';
             // $this->_booleanFilterBlockName   = 'tsearch/catalog_layer_filter_boolean';
         }
     }

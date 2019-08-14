@@ -15,22 +15,20 @@ class Tagalys_PopularSearches_Model_Observer  extends Varien_Object
   $this->file_path = $this->default_location . DS;
 }
 public function getPopularSearches() {
-  if(!Mage::helper('tagalys_core')->getTagalysConfig("is_tsearchsuggestion_active")) {
-      return false;
-    }
+
   if(!Mage::helper('tagalys_core')->getTagalysConfig('search_complete') || !Mage::helper('tagalys_core')->getTagalysConfig('setup_complete'))
     return false;
   try {
     $request = array(
                      'client_code' => $this->_client_code,
                      'api_key' => $this->_private_api_key,
-                     'store' => Mage::app()->getStore()->getStoreId() ? Mage::app()->getStore()->getStoreId() : 1
+                     'store' => Mage::app()->getStore()->getStoreId()
                      );
     $payload["identification"] = $request;
     $payloadData = (json_encode($payload));
     $json_data = $this->_payloadAgent($this->_url,($payloadData));
     
-    $fp = fopen( $this->file_path.'tagalys-popularsearches-'.$request["store"].'.json', 'w');
+    $fp = fopen( $this->file_path.'tagalys-popularsearches-'.Mage::app()->getStore()->getStoreId().'.json', 'w');
     if($json_data == null) {
      $json_data = array();
      fwrite($fp, json_encode($json_data));

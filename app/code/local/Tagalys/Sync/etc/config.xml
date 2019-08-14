@@ -8,8 +8,6 @@
         <client_config>/v1/configuration</client_config>
         <sync_feed_progress>/v1/products/sync_feed_progress</sync_feed_progress>
         <api_auth>/v1/identification/check</api_auth>
-        <installed_plugin>Search</installed_plugin>
-        <plugin_to_be_activated>tsearch,tsearchsuggestion</plugin_to_be_activated>
       </endpoint>
     </tagalys_endpoint>
   </default>

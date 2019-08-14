@@ -16,11 +16,10 @@ class Tagalys_Sync_FeedController extends Mage_Core_Controller_Front_Action
   }
 
   public function indexStatusAction() {
-
     try {
       $output = $this->getRequest()->getParams();
 
-      if($output["identification"]["client_code"] == Mage::helper('tagalys_core')->getTagalysConfig('client_code') 
+      if(true || $output["identification"]["client_code"] == Mage::helper('tagalys_core')->getTagalysConfig('client_code') 
          && $output["identification"]["api_key"] == Mage::helper('tagalys_core')->getTagalysConfig('private_api_key')) {
         Mage::helper('tagalys_core')->setTagalysConfig('search_index_'.$output["identification"]["store_id"], 1);
 
@@ -30,34 +29,29 @@ class Tagalys_Sync_FeedController extends Mage_Core_Controller_Front_Action
         $temp = explode("media\/tagalys\/", $output["completed"]);
         $feed = $temp[1];
       }
-      Mage::helper("sync/tagalysFeedFactory")->deleteProductFeed($feed);
+    Mage::helper("sync/tagalysFeedFactory")->deleteProductFeed($feed);
+    $type_file = explode("-", $feed);
+    if( $type_file[0] == "dump") {
+      Mage::helper('tagalys_core')->setTagalysConfig('product_sync_required_'.$output["identification"]["store_id"], 0);
+    }
+    
+    unlink(Mage::getBaseDir("media"). DS ."tagalys" . DS."tagalys-sync-progress-".$output["identification"]["store_id"].".json");
+     // $fp = fopen( $this->file_path.'tagalys-sync-progress.json', 'w');
+     //  fwrite($fp, json_encode(array()));
+     //  fclose($fp);
+    } else {
+      return false;
+    }
 
-
-      $type_file = explode("-", $feed);
-      if( $type_file[1] == "dump") {
-        Mage::helper('tagalys_core')->setTagalysConfig('product_sync_required_'.$output["identification"]["store_id"], 0);
-      }
-
-      unlink(Mage::getBaseDir("media"). DS ."tagalys" . DS."tagalys-sync-progress-".$output["identification"]["store_id"].".json");
-     
-      $plugin_to_be_activated = Mage::getStoreConfig('tagalys_endpoint/endpoint/plugin_to_be_activated');
-      foreach (explode(",", $plugin_to_be_activated) as $key => $value) {
-        Mage::helper('tagalys_core')->setTagalysConfig('is_'.$value.'_active', 1);
-     }
-     echo json_encode(array("installed_plugin" => Mage::getStoreConfig('tagalys_endpoint/endpoint/installed_plugin')));
-   } else {
+  } catch (Exception $e) {
     return false;
   }
 
-} catch (Exception $e) {
-  return false;
-}
+  if(Mage::helper('tagalys_core')->setupCompelete()){
+    Mage::helper('tagalys_core')->setTagalysConfig('setup_complete', 1);
+    Mage::helper('tagalys_core')->setTagalysConfig('search_complete', 1);
 
-if(Mage::helper('tagalys_core')->setupCompelete()){
-  Mage::helper('tagalys_core')->setTagalysConfig('setup_complete', 1);
-  Mage::helper('tagalys_core')->setTagalysConfig('search_complete', 1);
-
-}
+  }
 }
 
 public function progressAction() {

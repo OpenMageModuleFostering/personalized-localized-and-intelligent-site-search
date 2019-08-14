@@ -21,19 +21,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface {
     $htmlIdPrefix = $form->getHtmlIdPrefix();
     $fieldset = $form->addFieldset('tagalys_tsearch_ss_fieldset', array('legend' => $this->__('Search Suggestion Settings')));
 
-     $fieldset->addField('is_tsearchsuggestion_active', 'select', array(
-      'name'      => 'is_tsearchsuggestion_active',
-      'label'     => $this->__('Enable Search Suggestions'),
-      'title'     => $this->__('Enable Search Suggestions'),
-      'options'   => array(
-        '0' => $this->__('No'),
-        '1' => $this->__('Yes'),
-        ),
-      'required'  => true,
-      'style'   => "width:100%",
-      'value'     => (int)$this->_helper->getTagalysConfig("is_tsearchsuggestion_active")
-      ));
-
+   
     $fieldset->addField('search_box', 'text', array(
       'label'     => $this->__('Enter Search Box Selector'),
       'required'  => false,
@@ -61,7 +49,7 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface {
 
 
     $fieldset->addField('submit', 'submit', array(
-      'name' => 'submit_search_config',
+      'name' => 'search_config',
       'value' => 'Submit',
       'class'=> "tagalys-btn",
       'tabindex' => 1
@@ -70,14 +58,6 @@ implements Mage_Adminhtml_Block_Widget_Tab_Interface {
 	    $fieldset->addField('ss_note', 'note', array(
         'after_element_html' =>'<b> You need to disable Magento default search auto complete/suggestions. Please refer <a target="_blank" href="http://stackoverflow.com/questions/8688338/remove-magentos-search-suggest-feature">Link</a></b>' 
         ));
-
-      $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-      ->addFieldMap("{$htmlIdPrefix}is_tsearchsuggestion_active", 'is_tsearchsuggestion_active')
-      ->addFieldMap("{$htmlIdPrefix}search_box", 'search_box')
-      ->addFieldMap("{$htmlIdPrefix}search_box_container", 'search_box_container')
-      ->addFieldDependence('search_box', 'is_tsearchsuggestion_active', '1')
-      ->addFieldDependence('search_box_container', 'is_tsearchsuggestion_active', '1')
-      );
 
     $this->setForm($form);
     return parent::_prepareForm();

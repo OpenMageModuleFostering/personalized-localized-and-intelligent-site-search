@@ -115,6 +115,9 @@ class Tagalys_Sync_Model_Client extends Mage_Core_Model_Abstract
 		$result = curl_exec($agent);
 		$info = curl_getinfo($agent);
 
+			Mage::log("Tagalys Request info: ".json_encode($info),null,'request.log');
+		Mage::log("Tagalys Request payload: ".($payload),null,'request.log');
+		Mage::log("Tagalys Response: ".($result),null,'request.log');
 
 		if(curl_errno($agent)) {
 			$this->_error = true;
