@@ -1,7 +1,5 @@
-<div id="tagalys-search" class="tagalys-plugin">
-    <div class="tagalys-search-results">
+<div class="tagalys-namespace" id="tagalys-namespace">
 
-    </div>
 </div>
 
 <script type="text/javascript">
@@ -11,14 +9,14 @@
     ?>
     (function( $ ) {
         $('body').tagalys_context({
-        api_server: '<?php echo $api_credentials['api_server'] ?>',
-        api_identification: {"client_code":"<?php echo $api_credentials['client_code'] ?>","api_key":"<?php echo $api_credentials['public_api_key'] ?>","store_id":"<?php echo Mage::app()->getStore()->getStoreId() ?>","currency":"<?php echo $currency[0]['id']; ?>"},
-        currency: {
-            label: "<?php echo $currency[0]['label']; ?>",
-            exchange_rate: "<?php echo  $currency[0]['exchange_rate']; ?>",
-            fractional_digits:"<?php echo  $currency[0]['fractional_digits']; ?>"
-        }
+            api_server: '<?php echo $api_credentials['api_server'] ?>',
+            api_identification: {"client_code":"<?php echo $api_credentials['client_code'] ?>","api_key":"<?php echo $api_credentials['public_api_key'] ?>","store_id":"<?php echo Mage::app()->getStore()->getStoreId() ?>","currency":"<?php echo $currency[0]['id']; ?>"},
+            currency: {
+                label: "<?php echo $currency[0]['label']; ?>",
+                exchange_rate: "<?php echo  $currency[0]['exchange_rate']; ?>",
+                fractional_digits:"<?php echo  $currency[0]['fractional_digits']; ?>"
+            }
         });
-        $('#tagalys-search .tagalys-search-results').tagalys_search_results();
+        $('#tagalys-namespace').tagalys_search_results();
     }(jQuery));
 </script>

@@ -42,7 +42,11 @@ class Tagalys_Core_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
                         if (count($params['stores_for_tagalys']) > 0) {
                             Mage::getSingleton('tagalys_core/client')->log('info', 'Starting configuration sync', array('stores_for_tagalys' => $params['stores_for_tagalys']));
                             $result = Mage::helper("tagalys_core/service")->syncClientConfiguration($params['stores_for_tagalys']);
-                            if ($result !== false) {
+                            if ($result === false) {
+                                Mage::getSingleton('tagalys_core/client')->log('error', 'syncClientConfiguration returned false', array('stores_for_tagalys' => $params['stores_for_tagalys']));
+                                Mage::getSingleton('core/session')->addError("Sorry, something went wrong while saving your store's configuration. We've logged the issue and we'll get back once we know more. You can contact us here: <a href=\"mailto:cs@tagalys.com\">cs@tagalys.com</a>");
+                                $redirect_to_tab = 'sync_settings';
+                            } else {
                                 Mage::getSingleton('tagalys_core/client')->log('info', 'Completed configuration sync', array('stores_for_tagalys' => $params['stores_for_tagalys']));
                                 Mage::getModel('tagalys_core/config')->setTagalysConfig('stores', json_encode($params['stores_for_tagalys']));
                                 foreach($params['stores_for_tagalys'] as $i => $store_id) {
@@ -52,11 +56,12 @@ class Tagalys_Core_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
                                 if ($setup_status == 'sync_settings') {
                                     Mage::getModel('tagalys_core/config')->setTagalysConfig('setup_status', 'sync');
                                 }
+                                $redirect_to_tab = 'sync';
                             }
                         } else {
                             Mage::getSingleton('core/session')->addError("Please choose at least one store to continue.");
+                            $redirect_to_tab = 'sync_settings';
                         }
-                        $redirect_to_tab = 'sync';
                     } catch (Exception $e) {
                         Mage::getSingleton('tagalys_core/client')->log('error', 'Error in syncClientConfiguration: ' . $e->getMessage(), array('stores_for_tagalys' => $params['stores_for_tagalys']));
                         Mage::getSingleton('core/session')->addError("Sorry, something went wrong while saving your configuration. Please <a href=\"mailto:cs@tagalys.com\">email us</a> so we can resolve this issue.");

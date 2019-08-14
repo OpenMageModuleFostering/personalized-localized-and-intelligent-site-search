@@ -93,10 +93,15 @@ class Tagalys_Core_Helper_Service extends Mage_Core_Helper_Abstract {
                 } else if (!in_array($attribute->getAttributecode(), $tagalys_core_fields)) {
                     // custom field
                     $is_price_field = ($attribute->getFrontendInput() == "price" );
+                    if (array_key_exists($attribute->getFrontendInput(), $magento_tagalys_type_mapping)) {
+                        $type = $magento_tagalys_type_mapping[$attribute->getFrontendInput()];
+                    } else {
+                        $type = 'string';
+                    }
                     $custom_fields[] = array(
                         'name' => $attribute->getAttributecode(),
                         'label' => $attribute->getStoreLabel($store_id),
-                        'type' => $magento_tagalys_type_mapping[$attribute->getFrontendInput()],
+                        'type' => $type,
                         'currency' => $is_price_field,
                         'display' => $is_price_field,
                         'filters' => (bool)$attribute->getIsFilterable(),
