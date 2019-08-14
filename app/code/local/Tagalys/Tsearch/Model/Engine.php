@@ -4,10 +4,12 @@ class Tagalys_Tsearch_Model_Engine extends Mage_Core_Model_Abstract  {
 	private function _makeTagalysRequest() {
 		try {
 			$current_list_mode = Mage::app()->getLayout()->createBlock('catalog/product_list_toolbar')->getCurrentMode();
+
+			//var_dump($current_list_mode);
 			
 			if( $current_list_mode == "grid" || $current_list_mode == "grid-list") {
 				$defaultLimit = Mage::getStoreConfig('catalog/frontend/grid_per_page');
-				
+				//var_dump($defaultLimit);
 			} else if($current_list_mode == "list" || $current_list_mode == "list-grid") {
 				$defaultLimit = Mage::getStoreConfig('catalog/frontend/list_per_page');
 			}
@@ -56,10 +58,24 @@ class Tagalys_Tsearch_Model_Engine extends Mage_Core_Model_Abstract  {
 			//$payload['filters'] = true;
 			$payload['request'] = array("results","total","filters","sort_options");
 			$payload['q'] = $query;
-			$session_limit = $request["limit"]; //Mage::getSingleton('catalog/session')->getLimitPage();
+			//$session_limit = $request["limit"]; //Mage::getSingleton('catalog/session')->getLimitPage();
 
-			 $payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit);
-      $payload['page'] = 1;
+			//$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit);
+      			//$payload['page'] = 1;
+
+			$session_limit = Mage::getSingleton('catalog/session')->getLimitPage();
+
+			//var_dump($defaultLimit);
+			//var_dump(json_encode($request));
+
+			$payload['page'] = (!empty($request['p'])) ? $request['p'] : 1;
+			 if($payload['page'] == 1) {
+			 	$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit) * 2;
+			 } else {
+		 	$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit) ;
+			 }
+			$payload['per_page'] = (!empty($session_limit) ? $session_limit : $defaultLimit) ;
+			//var_dump(json_encode($payload));
 			
 
 			//by aaditya 
@@ -85,6 +101,7 @@ class Tagalys_Tsearch_Model_Engine extends Mage_Core_Model_Abstract  {
 		
 			
 			$response = $service->searchProduct($payload);
+			//var_dump(json_encode($response));
 		} catch (Exception $e) {
 				Mage::log('Tagalys_Tsearch_Model_Engine::Tagalys Request Error: '.$e->getMessage(), null, 'tagalys.log');
 		}
