@@ -20,6 +20,9 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Search extends Mage_Adminhtm
 
         $fieldset = $form->addFieldset('tagalys_search_fieldset', array('legend' => $this->__('Search')));
 
+        $search_enabled = Mage::getModel('tagalys_core/config')->getTagalysConfig("module:search:enabled");
+        $search_suggestions_enabled = Mage::getModel('tagalys_core/config')->getTagalysConfig('module:search_suggestions:enabled');
+
         $fieldset->addField('enable_search', 'select', array(
             'name' => 'enable_search',
             'label' => 'Enable',
@@ -29,6 +32,7 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Search extends Mage_Adminhtm
                 '1' => $this->__('Yes'),
             ),
             'required' => true,
+            'after_element_html' => ((!$search_suggestions_enabled && !$search_enabled) ? '<small>Choosing \'Yes\' will automatically enable Search Suggestions.</small>' : ''),
             'style' => 'width:100%',
             'value' => Mage::getModel('tagalys_core/config')->getTagalysConfig("module:search:enabled")
         ));

@@ -64,6 +64,10 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tabs extends Mage_Adminhtml_Bloc
               'label' => 'Search',
               'content' => $this->getLayout()->createBlock('tagalys_core/adminhtml_tagalys_edit_tab_search')->toHtml(),
             ));
+            $this->addTab('mpages', array(
+              'label' => 'Merchandising Pages',
+              'content' => $this->getLayout()->createBlock('tagalys_core/adminhtml_tagalys_edit_tab_mpages')->toHtml(),
+            ));
         }
 
         $this->addTab('support', array(

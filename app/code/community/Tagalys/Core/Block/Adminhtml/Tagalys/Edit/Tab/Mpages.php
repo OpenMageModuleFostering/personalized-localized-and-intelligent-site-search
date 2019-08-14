@@ -1,6 +1,6 @@
 <?php
 
-class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Searchsuggestions extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface {
+class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Mpages extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface {
 
     public function __construct() {
         parent::__construct();
@@ -18,12 +18,10 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Searchsuggestions extends Ma
         $form->setHtmlIdPrefix('admin_tagalys_core_');
         $htmlIdPrefix = $form->getHtmlIdPrefix();
 
-        $fieldset = $form->addFieldset('tagalys_searchsuggestions_fieldset', array('legend' => $this->__('Search Suggestions')));
+        $fieldset = $form->addFieldset('tagalys_mpages_fieldset', array('legend' => $this->__('Merchandising Pages')));
 
-        $search_enabled = Mage::getModel('tagalys_core/config')->getTagalysConfig('module:search:enabled');
-
-        $fieldset->addField('enable_searchsuggestions', 'select', array(
-            'name' => 'enable_searchsuggestions',
+        $fieldset->addField('enable_mpages', 'select', array(
+            'name' => 'enable_mpages',
             'label' => 'Enable',
             'title' => 'Enable',
             'options' => array(
@@ -31,20 +29,16 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Searchsuggestions extends Ma
                 '1' => $this->__('Yes'),
             ),
             'required' => true,
-            'disabled' => $search_enabled,
-            'after_element_html' => ($search_enabled ? '<small>Required for Search</small>' : ''),
             'style' => 'width:100%',
-            'value' => Mage::getModel('tagalys_core/config')->getTagalysConfig("module:search_suggestions:enabled")
+            'value' => Mage::getModel('tagalys_core/config')->getTagalysConfig("module:mpages:enabled")
         ));
 
-        if (!$search_enabled) {
-            $fieldset->addField('submit', 'submit', array(
-                'name' => 'tagalys_submit_action',
-                'value' => 'Save Search Suggestions Settings',
-                'class'=> "tagalys-btn",
-                'tabindex' => 1
-            ));
-        }
+        $fieldset->addField('submit', 'submit', array(
+            'name' => 'tagalys_submit_action',
+            'value' => 'Save Merchandising Pages Settings',
+            'class'=> "tagalys-btn",
+            'tabindex' => 1
+        ));
 
         $this->setForm($form);
         return parent::_prepareForm();
@@ -56,7 +50,7 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Searchsuggestions extends Ma
      * @return string
      */
     public function getTabLabel() {
-        return $this->__('Search Suggestions');
+        return $this->__('Merchandising Pages');
     }
 
     /**
@@ -65,7 +59,7 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tab_Searchsuggestions extends Ma
      * @return string
      */
     public function getTabTitle() {
-        return $this->__('Search Suggestions');
+        return $this->__('Merchandising Pages');
     }
 
     /**

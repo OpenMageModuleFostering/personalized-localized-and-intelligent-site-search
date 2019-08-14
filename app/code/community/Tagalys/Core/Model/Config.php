@@ -28,6 +28,9 @@ class Tagalys_Core_Model_Config extends Mage_Core_Model_Abstract {
                     case 'Search':
                         $modules_to_activate = array('search_suggestions', 'search');
                         break;
+                    case 'Mpages':
+                        $modules_to_activate = array('mpages');
+                        break;
                 }
                 Mage::getSingleton('tagalys_core/client')->log('info', 'All stores synced. Enabling Tagalys features.', array('modules_to_activate' => $modules_to_activate));
                 foreach($modules_to_activate as $module_to_activate) {

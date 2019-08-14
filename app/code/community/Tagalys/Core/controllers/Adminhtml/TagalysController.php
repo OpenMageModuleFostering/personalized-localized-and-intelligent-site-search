@@ -74,7 +74,14 @@ class Tagalys_Core_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
                     break;
                 case 'Save Search Settings':
                     Mage::getModel('tagalys_core/config')->setTagalysConfig('module:search:enabled', $params['enable_search']);
+                    if ($params['enable_search'] == '1') {
+                        Mage::getModel('tagalys_core/config')->setTagalysConfig('module:search_suggestions:enabled', $params['enable_search']);
+                    }
                     $redirect_to_tab = 'search';
+                    break;
+                case 'Save Merchandising Pages Settings':
+                    Mage::getModel('tagalys_core/config')->setTagalysConfig('module:mpages:enabled', $params['enable_mpages']);
+                    $redirect_to_tab = 'mpages';
                     break;
                 case 'Trigger full products resync now':
                     Mage::getSingleton('tagalys_core/client')->log('warn', 'Triggering full products resync');
