@@ -86,6 +86,13 @@ class Tagalys_Core_Block_Adminhtml_Tagalys_Edit_Tabs extends Mage_Adminhtml_Bloc
                     ));
     }
     
+    if($stores_setup) {
+      $this->addTab('tagalys_debug', array(
+                    'label'     => $this->__('Trouble Shooting'),
+                    'content'   => $this->getLayout()->createBlock('tagalys_core/adminhtml_tagalys_edit_tab_debug')
+                    ->toHtml()
+                    ));
+    }
 
     return parent::_prepareLayout();
   }

@@ -115,6 +115,7 @@ class Tagalys_Sync_Model_Client extends Mage_Core_Model_Abstract
 		$result = curl_exec($agent);
 		$info = curl_getinfo($agent);
 
+
 		if(curl_errno($agent)) {
 			$this->_error = true;
 		} else {

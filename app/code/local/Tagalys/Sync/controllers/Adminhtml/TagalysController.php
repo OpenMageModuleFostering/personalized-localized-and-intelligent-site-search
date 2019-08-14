@@ -16,6 +16,7 @@ class Tagalys_Sync_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
 
   public function saveAction() {
 
+
     $output = $this->getRequest()->getParams();
     
     $this->_helper = Mage::helper('tagalys_core');
@@ -79,9 +80,15 @@ class Tagalys_Sync_Adminhtml_TagalysController extends Mage_Adminhtml_Controller
       $response = Mage::helper("sync/tagalysFeedFactory")->createProductFeed($key,true);;
     }
   }
+  if(!empty($output["submit_reconfig"])) {
+    Mage::dispatchEvent('tagalys_client_config', array('object'=>$output));
+  }
+  if(empty($output["submit_resync"]) && empty($output["submit_reconfig"])) {
   if(Mage::helper('tagalys_core')->getTagalysConfig("is_tsearchsuggestions_active") || Mage::helper('tagalys_core')->getTagalysConfig("is_tsearch_active"))
   Mage::getSingleton('core/session')->addSuccess("Your preference has been saved.");
-
+  } else {
+    Mage::getSingleton('core/session')->addSuccess($output["submit_resync"] ? $output["submit_resync"]." Success." : $output["submit_reconfig"]. " Success.");
+  }
   return $this->_redirect('*/tagalys');
 }
 

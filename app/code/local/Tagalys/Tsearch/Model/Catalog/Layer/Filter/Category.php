@@ -55,7 +55,8 @@ class Tagalys_Tsearch_Model_Catalog_Layer_Filter_Category extends Mage_Catalog_M
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
         if ($data === null) {
-            $tagalys = Mage::helper('tsearch')->getTagalysSearchData()["filters"];
+            $data = Mage::helper('tsearch')->getTagalysSearchData();
+            $tagalys = $data["filters"];
             foreach ($tagalys as $filters) { 
                 if($filters["id"] == "__categories"){
                     $tagalys_categories = $filters;
