@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config>
+  <default>
+    <tagalys>
+      <endpoint>
+        <similarproducts>/v1/products/:id/similar</similarproducts>
+      </endpoint>
+    </tagalys>
+  </default>
+  <modules>
+    <Tagalys_SimilarProducts>
+      <version>0.1.0</version>
+    </Tagalys_SimilarProducts>
+  </modules>
+  <global>
+      <helpers>
+        <similarproducts>
+            <class>Tagalys_SimilarProducts_Helper</class>
+        </similarproducts>
+      </helpers>
+
+     <blocks>
+      <similarproducts>
+        <class>Tagalys_SimilarProducts_Block</class>
+      </similarproducts>
+
+      <catalog>
+        <rewrite>
+          <tagalys_similar_products>Tagalys_SimilarProducts_Block_Catalog_Product_SimilarProducts</tagalys_similar_products>
+        </rewrite>
+      </catalog>
+     </blocks>
+     
+     <models>
+      <similarproducts>
+        <class>Tagalys_SimilarProducts_Model</class>
+      </similarproducts>
+     </models>
+  </global>
+
+  <frontend>
+    <layout>
+      <updates>
+        <similarproducts>
+          <file>tagalys_similar_products.xml</file>
+        </similarproducts>
+      </updates>
+    </layout>
+  </frontend>
+  <!-- <depends>
+    <Mage_Catalog />
+  </depends> -->
+</config> 
