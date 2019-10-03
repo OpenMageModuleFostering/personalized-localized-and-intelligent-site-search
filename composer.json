@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Personalized-localized-and-Intelligent-Site-Search",
+    "name": "OpenMageModuleFostering\/Personalized-localized-and-Intelligent-Site-Search",
     "type": "magento-module",
     "license": "Tagalys",
     "homepage": "",
     "description": "Site Search: Free high conversion, SaaS based with synonym support. Popular searches and search suggestions.",
     "authors": [
-    {
-        "name": "Palani",
-        "email": "pc@tagalys.com"
-    }
-],
+        {
+            "name": "Palani",
+            "email": "pc@tagalys.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
